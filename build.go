@@ -82,8 +82,10 @@ func buildSteps(pickle *gherkin.Pickle) ([]*Step, error) {
 
 func buildStep(pickleStep *gherkin.PickleStep) (*Step, error) {
 	var step = &Step{
-		Timer:      &Timer{},
 		PickleStep: pickleStep,
+
+		Name: pickleStep.Text,
+		Timer:      &Timer{},
 	}
 
 	return step, nil
