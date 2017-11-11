@@ -1,4 +1,2 @@
 .idea/
-Gopkg.lock
-Gopkg.toml
 vendor/
