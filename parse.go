@@ -6,14 +6,27 @@ import (
 	"bytes"
 )
 
-func ParseDir(dir string) {
-
-}
-
-func ParseFile(filePath string) (*gherkin.GherkinDocument, error) {
+func ParseFile(filePath string) (*Feature, error) {
 	b, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return nil, err
 	}
-	return gherkin.ParseGherkinDocument(bytes.NewReader(b))
+	gd, err := gherkin.ParseGherkinDocument(bytes.NewReader(b))
+	if err != nil {
+		return nil, err
+	}
+	f, err := featureFromGherkinDoc(gd)
+	f.Path = filePath
+	if err != nil {
+		return nil, err
+	}
+	return f, nil
+
+}
+
+func featureFromGherkinDoc(document *gherkin.GherkinDocument) (*Feature, error) {
+	var f = &Feature{
+		GherkinDocument: document,
+	}
+	return f, nil
 }
