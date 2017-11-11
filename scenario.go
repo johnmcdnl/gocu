@@ -4,6 +4,8 @@ import "github.com/cucumber/gherkin-go"
 
 type Scenario struct {
 	Pickle *gherkin.Pickle
-	Timer *Timer
+
+	Name string
 	Steps []*Step
+	Timer *Timer
 }

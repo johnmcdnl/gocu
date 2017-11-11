@@ -25,15 +25,17 @@ func buildFeature(filePath string) (*Feature, error) {
 }
 
 func buildFeatureFromGherkinDocument(document *gherkin.GherkinDocument) (*Feature, error) {
-	var f = &Feature{
-		GherkinDocument: document,
-		Timer:           &Timer{},
-	}
 	scenarios, err := buildScenarios(document.Pickles())
 	if err != nil {
 		return nil, err
 	}
-	f.Scenarios = scenarios
+	var f = &Feature{
+		GherkinDocument: document,
+
+		Name:      document.Feature.Name,
+		Scenarios: scenarios,
+		Timer:     &Timer{},
+	}
 	return f, nil
 }
 
@@ -56,9 +58,11 @@ func buildScenario(pickle *gherkin.Pickle) (*Scenario, error) {
 	}
 
 	var scenario = &Scenario{
-		Timer:  &Timer{},
 		Pickle: pickle,
-		Steps:  steps,
+
+		Name:  pickle.Name,
+		Steps: steps,
+		Timer: &Timer{},
 	}
 
 	return scenario, nil
