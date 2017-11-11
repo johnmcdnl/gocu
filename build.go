@@ -84,8 +84,8 @@ func buildStep(pickleStep *gherkin.PickleStep) (*Step, error) {
 	var step = &Step{
 		PickleStep: pickleStep,
 
-		Name: pickleStep.Text,
-		Timer:      &Timer{},
+		Name:  pickleStep.Text,
+		Timer: &Timer{},
 	}
 
 	return step, nil
