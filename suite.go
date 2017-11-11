@@ -22,7 +22,7 @@ func NewSuite(dir string) (*Suite, error){
 }
 
 func (s *Suite) Build() error {
-	fn := func(path string, info os.FileInfo, err error) error{
+	parseGherkinFunc := func(path string, info os.FileInfo, err error) error{
 		if info.IsDir(){
 			return nil
 		}
@@ -33,11 +33,11 @@ func (s *Suite) Build() error {
 		if err!=nil{
 			return err
 		}
+		if f.GherkinDocument.Feature ==nil{
+			return nil
+		}
 		s.Features = append(s.Features, f)
 		return nil
 	}
-	if err := filepath.Walk(s.Dir, fn); err!=nil{
-		return err
-	}
-	return nil
+	return filepath.Walk(s.Dir, parseGherkinFunc)
 }
