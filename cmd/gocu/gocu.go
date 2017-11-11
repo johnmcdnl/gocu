@@ -18,6 +18,11 @@ func main(){
 	for _, f :=range s.Features{
 		fmt.Println(f.Path)
 		fmt.Println(f.GherkinDocument.Feature.Name)
+		for _, scenario :=range f.Scenarios{
+			for _, step :=range scenario.Steps{
+				fmt.Println(step.PickleStep.Text)
+			}
+		}
 	}
 }
 

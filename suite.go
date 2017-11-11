@@ -29,7 +29,7 @@ func (s *Suite) Build() error {
 		if !strings.HasSuffix(path, ".feature"){
 			return nil
 		}
-		f, err := ParseFile(path)
+		f, err := buildFeature(path)
 		if err!=nil{
 			return err
 		}

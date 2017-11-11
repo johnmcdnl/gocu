@@ -3,7 +3,7 @@ package gocu
 import "github.com/cucumber/gherkin-go"
 
 type Scenario struct {
-	pickle *gherkin.Pickle
+	Pickle *gherkin.Pickle
 	Timer *Timer
 	Steps []*Step
 }
