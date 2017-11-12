@@ -1,5 +1,5 @@
 @a
-Feature:
+Feature: some name
   @b @c
   Scenario Outline:
     Given <x>

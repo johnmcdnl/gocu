@@ -35,11 +35,11 @@ func buildFeatureFromGherkinDocument(document *gherkin.GherkinDocument) (*Featur
 	}
 
 	if document.Feature == nil {
-		return nil, errors.New("not a valid feature file")
+		return nil, errors.New("feature tag not found")
 	}
 
 	if document.Feature.Name == "" {
-		return nil, errors.New("not a valid feature file")
+		return nil, errors.New("feature does not have a name")
 	}
 
 	var f = &Feature{
