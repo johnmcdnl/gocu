@@ -3,10 +3,10 @@ package gocu
 import "github.com/cucumber/gherkin-go"
 
 type Feature struct {
-	Path string
+	Path            string
 	GherkinDocument *gherkin.GherkinDocument
 
-	Name string
+	Name      string
 	Scenarios []*Scenario
-	Timer *Timer
+	Timer     *Timer
 }

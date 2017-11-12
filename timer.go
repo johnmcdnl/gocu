@@ -8,11 +8,11 @@ type Timer struct {
 	Duration time.Duration
 }
 
-func (t *Timer)Start(){
+func (t *Timer) Start() {
 	t.Begin = time.Now()
 }
 
-func (t *Timer)Stop(){
+func (t *Timer) Stop() {
 	t.End = time.Now()
 	t.Duration = t.End.Sub(t.Begin)
 }

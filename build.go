@@ -1,9 +1,12 @@
 package gocu
 
 import (
-	"github.com/cucumber/gherkin-go"
-	"io/ioutil"
 	"bytes"
+	"errors"
+	"fmt"
+	"io/ioutil"
+
+	"github.com/cucumber/gherkin-go"
 )
 
 func buildFeature(filePath string) (*Feature, error) {
@@ -16,10 +19,11 @@ func buildFeature(filePath string) (*Feature, error) {
 		return nil, err
 	}
 	f, err := buildFeatureFromGherkinDocument(gd)
-	f.Path = filePath
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("%s has error: %s", filePath, err.Error())
 	}
+	f.Path = filePath
+
 	return f, nil
 
 }
@@ -29,12 +33,20 @@ func buildFeatureFromGherkinDocument(document *gherkin.GherkinDocument) (*Featur
 	if err != nil {
 		return nil, err
 	}
+
+	if document.Feature == nil {
+		return nil, errors.New("not a valid feature file")
+	}
+
+	if document.Feature.Name == "" {
+		return nil, errors.New("not a valid feature file")
+	}
+
 	var f = &Feature{
 		GherkinDocument: document,
-
-		Name:      document.Feature.Name,
-		Scenarios: scenarios,
-		Timer:     &Timer{},
+		Name:            document.Feature.Name,
+		Scenarios:       scenarios,
+		Timer:           &Timer{},
 	}
 	return f, nil
 }
